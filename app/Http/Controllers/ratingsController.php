@@ -16,6 +16,12 @@ class ratingsController extends Controller
     public function index()
     {
         //
+               $date=date( 'Y-m-d 0:0:0');
+
+        $ratings=Ratings::with('Client')->where('created_at',$date);
+
+
+          return view('ratings',compact(['ratings']));
     }
 
     /**

@@ -158,6 +158,15 @@
     });
       </script>
 @stop
+
+@section('script')
+<script type="text/javascript">
+
+setactiveOption('ordersreports');
+
+	</script>
+
+     @stop
 <!--
       <script>
 

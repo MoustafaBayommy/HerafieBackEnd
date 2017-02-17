@@ -5,7 +5,9 @@
 	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Light Bootstrap Dashboard by Creative Tim</title>
+	<title>Herafie</title>
+           @extends('layouts.styles')
+                          <link href="../resources/assets\css\bootstrap-4.0.0-alpha.6-dist\css\bootstrap.min.css" rel="stylesheet" />
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
@@ -60,7 +62,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                        {{ config('app.name', 'Herafie') }}
                     </a>
                 </div>
 
@@ -75,7 +77,7 @@
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
+                            <!--<li><a href="{{ url('/register') }}">Register</a></li>-->
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -106,6 +108,9 @@
     </div>
   
 
+<div id="tawwar" > 
+Powered By TawwarTech&copy;.
+ </div>
     <!--<script src="assets/js/app.js"></script>-->
 </body>
 </html>

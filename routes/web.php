@@ -42,6 +42,7 @@
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index');
+Route::get('clients',array(  'middleware' => ['auth'],'as'=>'cliets','uses'=>'ClientsController@index'));
 
 Route::get('ordersReportsView',array(  'middleware' => ['auth'],'as'=>'ordersReportsView','uses'=>'OrderController@ordersReport'));
 Route::get('ordersreports',array(  'middleware' => ['auth'],'as'=>'reports','uses'=>'OrderController@reports'));
@@ -50,7 +51,6 @@ Route::get('ordersreports',array(  'middleware' => ['auth'],'as'=>'reports','use
 
 
 // Route::resource('/ratings','RatingsController');
-// Route::get('/clients/testClient','ClientsController@isClientExist');
 $router->group(['middleware' => 'auth'], function($router)
 {
    $router->get('/', 'OrderController@index');
@@ -67,4 +67,9 @@ $router->group(['middleware' => 'auth'], function($router)
 $router->group(['middleware' => 'auth'], function($router)
 {
   $router->resource('/offers', 'OffersController');
+});
+
+Route::get('/pusher', function() {
+    event(new App\Events\NewRate('Hi there Pusher!'));
+    return "Event has been sent!";
 });

@@ -7,8 +7,9 @@
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
-	<title>Light Bootstrap Dashboard by Creative Tim</title>
+	<title>Herafie</title>
            @extends('layouts.styles')
+
         <script src="../resources/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 
 	    <script>
@@ -32,7 +33,7 @@
     	<div class="sidebar-wrapper">
             <div class="logo">
                 <a href="http://www.creative-tim.com" class="simple-text">
-                   Elfekr ElHerafie
+                  Herafie
                 </a>
             </div>
 
@@ -45,16 +46,34 @@
                     </a>
                 </li>
 -->
-                <li class="active">
+                <li class="orders">
                     <a href="orders">
                         <i class="pe-7s-note2"></i>
                         <p>Orders</p>
                     </a>
                 </li>
-                <li>
+                    <li class="ordersreports">
+                    <a href="ordersreports">
+                        <i class="pe-7s-graph1"></i>
+                        <p>Reports</p>
+                    </a>
+                </li>
+                    <li class="clients">
+                    <a href="clients">
+                        <i class="pe-7s-user"></i>
+                        <p>Clients</p>
+                    </a>
+                </li>
+                <li class="offers">
                     <a href="offers">
-                        <i class="pe-7s-news-paper"></i>
+                        <i class="pe-7s-magic-wand"></i>
                         <p>Offers</p>
+                    </a>
+                </li>
+                <li class="ratings">
+                    <a href="ratings">
+                        <i class="pe-7s-star"></i>
+                        <p>Ratings</p>
                     </a>
                 </li>
                 <!--<li>
@@ -63,12 +82,7 @@
                         <p>reports</p>
                     </a>
                 </li>-->
-                <li>
-                    <a href="ordersreports">
-                        <i class="pe-7s-map-marker"></i>
-                        <p>Reports</p>
-                    </a>
-                </li>
+            
                 <!--<li>
                     <a href="notifications.html">
                         <i class="pe-7s-bell"></i>
@@ -223,9 +237,9 @@
 	<script src="../resources/assets/js/light-bootstrap-dashboard.js"></script>
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
-<!--
-	<script src="assets/js/demo.js"></script>
+<!--	<script src="assets/js/demo.js"></script>-->
 
+<!--
 	<script type="text/javascript">
     	$(document).ready(function(){
 
@@ -243,5 +257,17 @@
     	});
 	</script>
 -->
+    
+    <script>
+        function setactiveOption(className){
+   
+         $('.active').removeClass('active');
+        $('.'+className).addClass('active');
+    
+        }
+    </script>
+
+                    @yield('script')
+
 
 </html>

@@ -5,7 +5,9 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+                <div class="panel-heading"
+             
+    >Login</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
@@ -40,11 +42,16 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
+                                <!--<div class="checkbox">
                                     <label>
                                         <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : ''}}> Remember Me
                                     </label>
-                                </div>
+                                </div>-->
+                                <label class="custom-control custom-checkbox" style="color: rgba(119, 119, 119, 0.78);">
+  <input type="checkbox" class="custom-control-input" name="remember" {{ old('remember') ? 'checked' : ''}}>
+  <span class="custom-control-indicator"></span>
+  <span class="custom-control-description">Remember Me</span>
+</label>
                             </div>
                         </div>
 

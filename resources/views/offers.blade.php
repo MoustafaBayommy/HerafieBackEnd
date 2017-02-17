@@ -209,3 +209,11 @@ saveData.error(function() { alert("Something went wrong"); });
 <i class="pe-7s-like2"></i> 
  
       </div>
+      
+      @section('script')
+<script type="text/javascript">
+
+setactiveOption('offers');
+
+	</script>
+      @stop

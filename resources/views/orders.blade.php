@@ -132,7 +132,7 @@
             </div>
         </div>
 
-</div>
+
 
 
 
@@ -253,3 +253,29 @@ var saveData = $.ajax({
 <i class="pe-7s-like2"></i> 
  
       </div>
+
+     
+
+@section('script')
+      <script src="https://js.pusher.com/3.2/pusher.js"></script>
+
+<script type="text/javascript">
+
+setactiveOption('orders');
+
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher("{{ env('PUSHER_KEY') }}", { cluster: 'MT1' }
+);
+  var channel = pusher.subscribe('newRate');
+ var eventName="App\\Events\\NewRate";
+    channel.bind(eventName,  function(data) {
+      alert(data.message);
+  });
+//     channel.bind('pusher:subscription_succeeded', function(data) {
+//       alert(data.message);
+//   });
+
+	</script>
+
+     @stop

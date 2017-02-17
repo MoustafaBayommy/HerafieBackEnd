@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Order;
 use App\Client;
 use PDF;
+use Event;
+use App\Events\NewOrder;
 
 
 use \Datetime;
@@ -20,10 +22,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-
+        $date=date( 'Y-m-d 0:0:0');
         $ordesrInProgress= Order::with('Client')->where('orderStutes','new')->get();
             //   $ordesrInProgress=Order::where('orderStutes','new');
-              $ordersFinishedToday=Order::with('Client')->whereNotIn('orderStutes',['new']);
+              $ordersFinishedToday=Order::with('Client')->whereNotIn('orderStutes',['new'])->where('created_at',$date);
 
           return view('orders',compact(['ordesrInProgress','ordersFinishedToday']));
     }
@@ -144,18 +146,26 @@ return response()->json($orders);
     public function store(Request $request)
     {
 
-         $client=Client::where('mobile',$request->clientMobil)->get();
         $filename='';
-if ($request->hasFile('descriptionFile')) {
-          $file = $request->file('descriptionFile');
-       $filename=$file->getClientOriginalName();
+              $destinationPath = 'uploads';
 
+if ($request->hasFile('file')) {
+          $file = $request->file('file');
+    //    $filename=$file->getClientOriginalName();
+     $filename=  uniqid('herafie_');
+
+              $file->move($destinationPath, $filename);
+        return response()
+            ->json([
+    'filesucess' => 'true',
+    'name'=>$filename
+]);
 }
 
 
+         $client=Client::where('mobile',$request->clientMobil)->get();
 
   //Move Uploaded File
-      $destinationPath = 'uploads';
 
      $order=new Order;
         $order->client=$client[0]->id;
@@ -168,11 +178,13 @@ if ($request->hasFile('descriptionFile')) {
         $order->onDate=date( 'Y-m-d H:i:s',strtotime($request->onDate));
         $order->onTime =$request->onTime;
         $order->textDescription=$request->descriptionText;
-        $order->fileDescription=$filename;
-        $order->save();
-        if(isset($file)){
-       $file->move($destinationPath, $filename);
-        }
+        $order->fileDescription=$request->descriptionFile;
+
+        
+
+                $order->save();
+// Event::fire(new NewOrder($order::with('Client')));
+
         //  Order::create($request->all());
         return response()
             ->json([

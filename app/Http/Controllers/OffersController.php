@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Offer;
+use App\Events\NewRate;
 
 class OffersController extends Controller
 {
@@ -20,6 +21,7 @@ class OffersController extends Controller
      */
     public function index()
     {
+event(new NewRate('offers Page Opened'));
 
            $offers=Offer::all();
             return view('offers',compact('offers'));
