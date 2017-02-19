@@ -83,10 +83,6 @@
 
                     <div class="col-md-12">
 
-<form action="api/orders/uploadFile" method="POST">
-<input type="file" name="file">
-<button type='submite'>SSubmite</button>
-</form>
 
                         <div class="card card-plain">
                             <div class="header">
