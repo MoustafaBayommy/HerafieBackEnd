@@ -93,7 +93,7 @@
         </div>
 
  <script type="text/javascript"
-     src="../resources/assets/js/jqueryUi.js">
+     src="{{asset('assets/js/jqueryUi.js')}}">
     </script>
     
 <script>

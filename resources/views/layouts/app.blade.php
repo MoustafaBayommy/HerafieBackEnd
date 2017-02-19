@@ -7,7 +7,7 @@
 
 	<title>Herafie</title>
            @extends('layouts.styles')
-                          <link href="../resources/assets\css\bootstrap-4.0.0-alpha.6-dist\css\bootstrap.min.css" rel="stylesheet" />
+                          <link href="{{ asset('assets/css/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css')}}" rel="stylesheet" />
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
     <meta name="viewport" content="width=device-width" />
