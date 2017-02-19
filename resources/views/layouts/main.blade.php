@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width" />
 	<title>Herafie</title>
            @extends('layouts.styles')
- <script type="text/javascript" src="{{ URL::asset('js/jquery-1.10.2.js') }}"></script>
+ <script type="text/javascript" src="{{ URL::asset('../resources/assets/js/jquery-1.10.2.js') }}"></script>
 
 
 	    <script>
@@ -215,11 +215,11 @@
 
 
     <!--   Core JS Files   -->
-     <script type="text/javascript" src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
- <script type="text/javascript" src="{{ URL::asset('js/bootstrap-checkbox-radio-switch.js') }}"></script>
- <script type="text/javascript" src="{{ URL::asset('js/chartist.min.js') }}"></script>
- <script type="text/javascript" src="{{ URL::asset('js/bootstrap-notify.js') }}"></script>
- <script type="text/javascript" src="{{ URL::asset('js/light-bootstrap-dashboard.js') }}"></script>
+     <script type="text/javascript" src="{{ URL::asset('../resources/assets/js/bootstrap.min.js') }}"></script>
+ <script type="text/javascript" src="{{ URL::asset('../resources/assets/js/bootstrap-checkbox-radio-switch.js') }}"></script>
+ <script type="text/javascript" src="{{ URL::asset('../resources/assets/js/chartist.min.js') }}"></script>
+ <script type="text/javascript" src="{{ URL::asset('../resources/assets/js/bootstrap-notify.js') }}"></script>
+ <script type="text/javascript" src="{{ URL::asset('../resources/assets/js/light-bootstrap-dashboard.js') }}"></script>
 
 
 
