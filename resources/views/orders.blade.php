@@ -1,5 +1,5 @@
        @extends('layouts.main')
-            <link href="../resources/assets/css/custom.bootstrap.css" rel="stylesheet" />
+            <link href="{{ asset('css/custom.bootstrap.css') }}" rel="stylesheet" />
 
        @section('headerTitle')
 

@@ -3,16 +3,16 @@
 
 
     <!-- Bootstrap core CSS     -->
-    <link href="../resources/assets/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="../resources/assets/css/jqueryuiThem.css" rel="stylesheet" />
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/jqueryuiThem.css') }}" rel="stylesheet" />
     
  <!--<link rel="stylesheet" type="text/css" media="screen"
      href="../resources/assets/css/bootstrap-datetimepicker.min.css">-->
     <!-- Animation library for notifications   -->
-    <link href="../resources/assets/css/animate.min.css" rel="stylesheet"/>
+    <link href="{{ asset('css/animate.min.css') }}" rel="stylesheet"/>
 
     <!--  Light Bootstrap Table core CSS    -->
-    <link href="../resources/assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+    <link href="{{ asset('css/light-bootstrap-dashboard.css') }}" rel="stylesheet"/>
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
@@ -28,17 +28,17 @@
     <!-- Scripts -->
 
     <!-- Bootstrap core CSS     -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" />
 
     <!-- Animation library for notifications   -->
-    <link href="assets/css/animate.min.css" rel="stylesheet"/>
+    <link href="{{ asset('css/animate.min.css') }}" rel="stylesheet"/>
 
     <!--  Light Bootstrap Table core CSS    -->
-    <link href="assets/css/light-bootstrap-dashboard.css" rel="stylesheet"/>
+    <link href="{{ asset('css/light-bootstrap-dashboard.css') }}" rel="stylesheet"/>
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="assets/css/demo.css" rel="stylesheet" />
+    <link href="{{ asset('css/demo.css"') }} rel="stylesheet" />
 
 
     <!--     Fonts and icons     -->

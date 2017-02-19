@@ -9,8 +9,8 @@
     <meta name="viewport" content="width=device-width" />
 	<title>Herafie</title>
            @extends('layouts.styles')
+ <script type="text/javascript" src="{{ URL::asset('js/jquery-1.10.2.js') }}"></script>
 
-        <script src="../resources/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
 
 	    <script>
         window.Laravel = <?php echo json_encode([
@@ -215,22 +215,14 @@
 
 
     <!--   Core JS Files   -->
-	<script src="../resources/assets/js/bootstrap.min.js" type="text/javascript"></script>
+     <script type="text/javascript" src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+ <script type="text/javascript" src="{{ URL::asset('js/bootstrap-checkbox-radio-switch.js') }}"></script>
+ <script type="text/javascript" src="{{ URL::asset('js/chartist.min.js') }}"></script>
+ <script type="text/javascript" src="{{ URL::asset('js/bootstrap-notify.js') }}"></script>
+ <script type="text/javascript" src="{{ URL::asset('js/light-bootstrap-dashboard.js') }}"></script>
 
-	<!--  Checkbox, Radio & Switch Plugins -->
-	<script src="../resources/assets/js/bootstrap-checkbox-radio-switch.js"></script>
 
-	<!--  Charts Plugin -->
-	<script src="../resources/assets/js/chartist.min.js"></script>
 
-    <!--  Notifications Plugin    -->
-    <script src="../resources/assets/js/bootstrap-notify.js"></script>
-
-    <!--  Google Maps Plugin    -->
-<!--    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>-->
-
-    <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-	<script src="../resources/assets/js/light-bootstrap-dashboard.js"></script>
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
 <!--	<script src="assets/js/demo.js"></script>-->
