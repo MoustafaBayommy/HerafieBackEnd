@@ -30,6 +30,8 @@ Route::resource('/clients','ClientsController',['middleware' => 'cors']);
 Route::get('/orders/getClientOrders','OrderController@getClientOrders');
 Route::resource('/orders','OrderController',['middleware' => 'cors']);
 Route::post('/orders/ChangeStutes','OrderController@update',['middleware' => 'cors']);
+Route::post('/orders/uploadFile','OrderController@uploadFile',['middleware' => 'cors']);
+
 
 //Rattingd
 

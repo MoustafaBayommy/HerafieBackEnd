@@ -11,16 +11,16 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 class NewRate  implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
+  public $rate;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-     public $message;
- public function __construct($message)
+ public function __construct($rate)
     {
-        $this->message = $message;
+        $this->rate = $rate;
     }
 
 
@@ -32,7 +32,7 @@ class NewRate  implements ShouldBroadcast
     public function broadcastOn()
     {
         // return new PrivateChannel('newRate');
-                return ['newRate'];
+                return ['newRateChannel'];
 
     }
 }

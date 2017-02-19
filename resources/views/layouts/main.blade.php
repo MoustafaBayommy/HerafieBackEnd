@@ -122,14 +122,10 @@
                               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-globe"></i>
                                     <b class="caret"></b>
-                                    <span class="notification">5</span>
+                                    <span class="notification numberOfNot">0</span>
                               </a>
-                              <ul class="dropdown-menu">
-                                <li><a href="#">Notification 1</a></li>
-                                <li><a href="#">Notification 2</a></li>
-                                <li><a href="#">Notification 3</a></li>
-                                <li><a href="#">Notification 4</a></li>
-                                <li><a href="#">Another notification</a></li>
+                              <ul class="dropdown-menu notifications">
+                                <!--<li id="notificationId"><a href="#">Notification 1</a></li>-->
                               </ul>
                         </li>
                         <li>
@@ -259,11 +255,32 @@
 -->
     
     <script>
+
+    var numeroFnOTIFICATIONS=0;
         function setactiveOption(className){
    
          $('.active').removeClass('active');
         $('.'+className).addClass('active');
     
+        }
+
+        addNotification('dhjfhdsf','fdsdfsdf','#SAfasf','ff');
+
+        function addNotification(title,body,link,id){
+            var notification='<li id='+id+'><a '
+                +'href='+link+'>'
+               +'<div>'+title+'</div>'
+               +'<div>'+body+'</div></a></li>';
+$(".notifications").append(notification);
+numeroFnOTIFICATIONS++;
+$(".numberOfNot").html(numeroFnOTIFICATIONS);
+        }
+
+        function   removeNotification(id){
+$("#'+id+'").remove();
+numeroFnOTIFICATIONS--;
+$(".numberOfNot").html(numeroFnOTIFICATIONS);
+
         }
     </script>
 

@@ -8,8 +8,6 @@ use App\Client;
 use PDF;
 use Event;
 use App\Events\NewOrder;
-
-
 use \Datetime;
 class OrderController extends Controller
 {
@@ -22,6 +20,7 @@ class OrderController extends Controller
      */
     public function index()
     {
+
         $date=date( 'Y-m-d 0:0:0');
         $ordesrInProgress= Order::with('Client')->where('orderStutes','new')->get();
             //   $ordesrInProgress=Order::where('orderStutes','new');
@@ -143,24 +142,30 @@ return response()->json($orders);
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
 
-        $filename='';
+
+ public function uploadFile(Request $request){
+             $filename='';
               $destinationPath = 'uploads';
-
 if ($request->hasFile('file')) {
+      
           $file = $request->file('file');
-    //    $filename=$file->getClientOriginalName();
+      echo $file->getClientOriginalName();
      $filename=  uniqid('herafie_');
 
-              $file->move($destinationPath, $filename);
+              $file->move($destinationPath, $filename.'jpg');
         return response()
             ->json([
     'filesucess' => 'true',
     'name'=>$filename
 ]);
 }
+
+ }
+     
+    public function store(Request $request)
+    {
+
 
 
          $client=Client::where('mobile',$request->clientMobil)->get();
@@ -183,7 +188,7 @@ if ($request->hasFile('file')) {
         
 
                 $order->save();
-// Event::fire(new NewOrder($order::with('Client')));
+Event::fire(new NewOrder($order::with('Client')));
 
         //  Order::create($request->all());
         return response()

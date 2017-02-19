@@ -36,18 +36,20 @@ class NewOrder  implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+                return ('newOrderChannel');
+
+        // return new PrivateChannel('channel-name');
     }
 
-    public function broadcastWith()
-{
-    return [
-        'user' => [
-            'name' => 'Klark Cent',
-            'age' => 30,
-            'planet' => 'Crypton',
-            'abilities' => 'Bashing'
-        ]
-    ];
-}
+//     public function broadcastWith()
+// {
+//     return [
+//         'user' => [
+//             'name' => 'Klark Cent',
+//             'age' => 30,
+//             'planet' => 'Crypton',
+//             'abilities' => 'Bashing'
+//         ]
+//     ];
+// }
 }

@@ -68,12 +68,37 @@
      
 
 @section('script')
+      <script src="https://js.pusher.com/3.2/pusher.js"></script>
+
 <script type="text/javascript">
 
 setactiveOption('ratings');
 
+
+
+
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher("{{ env('PUSHER_KEY') }}", { cluster: 'MT1' }
+);
+  var channel = pusher.subscribe('newRateChannel');
+ var eventName="App\\Events\\NewRate";
+    channel.bind(eventName,  function(data) {
+        console.log(data.rate);
+        var title;
+        var body;
+        var link;
+        var id;
+                addNotification('dhjfhdsf','fdsdfsdf','#SAfasf','ff');
+
+  });
+//     channel.bind('pusher:subscription_succeeded', function(data) {
+//       alert(data.message);
+//   });
+
 	</script>
 
+     
      @stop
 
 

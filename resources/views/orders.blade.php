@@ -82,6 +82,12 @@
 
 
                     <div class="col-md-12">
+
+<form action="api/orders/uploadFile" method="POST">
+<input type="file" name="file">
+<button type='submite'>SSubmite</button>
+</form>
+
                         <div class="card card-plain">
                             <div class="header">
                                 <h4 class="title">Finished Orders Today</h4>
@@ -267,10 +273,16 @@ setactiveOption('orders');
 
     var pusher = new Pusher("{{ env('PUSHER_KEY') }}", { cluster: 'MT1' }
 );
-  var channel = pusher.subscribe('newRate');
- var eventName="App\\Events\\NewRate";
+  var channel = pusher.subscribe('newOrderChannel');
+ var eventName="App\\Events\\NewOrder";
     channel.bind(eventName,  function(data) {
-      alert(data.message);
+        console.log(data.order);
+        var title;
+        var body;
+        var link;
+        var id;
+                addNotification('dhjfhdsf','fdsdfsdf','#SAfasf','ff');
+
   });
 //     channel.bind('pusher:subscription_succeeded', function(data) {
 //       alert(data.message);
