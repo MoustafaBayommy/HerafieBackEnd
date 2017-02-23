@@ -13,9 +13,23 @@
                     <a class="navbar-brand" href="#">Ratings Today</a>
                 </div>
 @stop
+   @section('notification')
 
+           <li class="dropdown">
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="fa fa-globe"></i>
+                                    <b class="caret"></b>
+                                    <span class="notification numberOfNot">0</span>
+                              </a>
+                              <ul class="dropdown-menu notifications">
+                                <!--<li id="notificationId"><a href="#">Notification 1</a></li>-->
+                              </ul>
+                        </li>
+                        @stop
        @section('content')
-
+<script>
+var index=-1;
+</script>
   <div class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -39,7 +53,9 @@
                                     <tbody>
                                     
                                     @foreach ($ratings as $rate)
-
+<script>
+index++;
+</script>
                                         <tr>
                                             <td>{{$loop->index}}</td>
                                              <td>{{$rate->client->mobile}}</td>
@@ -85,12 +101,37 @@ setactiveOption('ratings');
  var eventName="App\\Events\\NewRate";
     channel.bind(eventName,  function(data) {
         console.log(data.rate);
-        var title;
-        var body;
-        var link;
+        var title="new Rate";
+        var body="you have new rate from client "+data.Client.mobile;
+        var link='';
         var id;
-                addNotification('dhjfhdsf','fdsdfsdf','#SAfasf','ff');
+                // addNotification('dhjfhdsf','fdsdfsdf','#SAfasf','ff');
+       
+index++;
 
+
+var rate=data.rate;
+var newRow='<tr class="new">'
+        +'<td>'+index+'</td>'
+        +'<td>'+data.Client.mobile+'</td>'
+        +'<td>'+rate.appRate+'</td>'
+        +'<td>'+rate.agentRate+'</td>'
+        +'<td>'+rate.techRate+'</td>'
+        +'<td>'+rate.notes+'</td>'
+        +'<td>'+rate.created_at+'</td>'
+        +'</tr>';
+$('#newOrdersTableBody').append(newRow)
+ var title='new Order';
+        var body='new order from client : '+data.order.client.mobile;
+        var link;
+        var id=data.order.id;
+                addNotification(title,body,link,id);
+
+  });
+
+  $('.notifications li').click(function(){
+    $('.new').removeClass('new');
+removeNotification(0);
   });
 //     channel.bind('pusher:subscription_succeeded', function(data) {
 //       alert(data.message);

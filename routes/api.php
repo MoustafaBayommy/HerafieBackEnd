@@ -28,9 +28,12 @@ Route::resource('/clients','ClientsController',['middleware' => 'cors']);
 
 //orders api
 Route::get('/orders/getClientOrders','OrderController@getClientOrders');
-Route::resource('/orders','OrderController',['middleware' => 'cors']);
+Route::post('/orders/uploadFile','OrderController@uploadDescFile');
+
 Route::post('/orders/ChangeStutes','OrderController@update',['middleware' => 'cors']);
-Route::post('/orders/uploadFile','OrderController@uploadFile',['middleware' => 'cors']);
+Route::post('/orders','OrderController@store',['middleware' => 'cors']);
+
+// Route::resource('/orders','OrderController',['middleware' => 'cors']);
 
 
 //Rattingd

@@ -72,9 +72,14 @@
 </div>
           </div>
     <div class="form-group" style="text-align: center;">
+      <button type="button" class="btn btn-outline-success exportToExel" >
+         <span class="glyphicon glyphicon-star" aria-hidden="true" ></span>To Excel</button>
      <button type="button" class="btn btn-outline-success" >
                                     <span class="glyphicon glyphicon-star" aria-hidden="true" ></span>report</button>
     </div>
+</div>
+  
+    
 </form>
 
                             </div>
@@ -93,7 +98,7 @@
         </div>
 
  <script type="text/javascript"
-     src="{{asset('assets/js/jqueryUi.js')}}">
+     src="{{ asset('assets/js/jqueryUi.js')}}">
     </script>
     
 <script>
@@ -129,6 +134,31 @@
         return ToDate;
 }
     
+
+              $('.exportToExel').click(function(){
+              
+            var fromDate= $( "#datepicker-from" ).val();
+            var toDate=$( "#datepicker-to" ).val();
+            var stutes='all';
+
+              if($( "#new" ).prop("checked")){
+                  stutes='new';
+              }else if($( "#served" ).prop("checked")){
+                  stutes='served';
+
+              }else if($( "#serving" ).prop("checked")){
+                  stutes='serving';
+
+              }else{
+                  
+              }
+        
+              
+              var url='ordersToExcel?from='+fromDate+'&to='+toDate+'&stutes='+stutes;
+              
+                 var win = window.open(url, '_blank');
+
+    });
 
        
           $('.btn-outline-success').click(function(){

@@ -164,7 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
 Vinkla\Pusher\PusherServiceProvider::class,
-
+'Maatwebsite\Excel\ExcelServiceProvider',
         /*
          * Package Service Providers...
          */
@@ -228,8 +228,7 @@ Vinkla\Pusher\PusherServiceProvider::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
             'PDF' => Barryvdh\DomPDF\Facade::class,
-
-
+    'Excel'     => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

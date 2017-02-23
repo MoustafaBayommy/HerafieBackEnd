@@ -8,6 +8,7 @@
         "php": ">=5.6.4",
         "barryvdh/laravel-dompdf": "^0.7.1",
         "laravel/framework": "5.3.*",
+        "maatwebsite/excel": "^2.1.0",
         "pusher/pusher-php-server": "^2.6",
         "vinkla/pusher": "^2.5"
     },

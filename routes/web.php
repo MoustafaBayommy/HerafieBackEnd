@@ -35,7 +35,6 @@
 // Route::get('/offers','OffersController@index');
 
 
-
   
 
 // Route::resource('/offers','OffersController');
@@ -54,9 +53,11 @@ Route::get('ordersreports',array(  'middleware' => ['auth'],'as'=>'reports','use
 $router->group(['middleware' => 'auth'], function($router)
 {
    $router->get('/', 'OrderController@index');
+   $router->get('/ordersToExcel', 'OrderController@excel');
 
   // $router->get('/ordersreports', 'OrderController@reports');
   $router->resource('/orders', 'OrderController');
+
   
 });
 $router->group(['middleware' => 'auth'], function($router)
@@ -69,7 +70,7 @@ $router->group(['middleware' => 'auth'], function($router)
   $router->resource('/offers', 'OffersController');
 });
 
-Route::get('/pusher', function() {
-    event(new App\Events\NewRate('Hi there Pusher!'));
-    return "Event has been sent!";
-});
+// Route::get('/pusher', function() {
+//     event(new App\Events\NewRate('Hi there Pusher!'));
+//     return "Event has been sent!";
+// });

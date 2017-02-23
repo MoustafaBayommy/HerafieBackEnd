@@ -109,7 +109,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="orders">Orders</a>
+                    <!--<a class="navbar-brand" href="orders">Orders</a>-->
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
@@ -118,16 +118,7 @@
                                 <i class="fa fa-dashboard"></i>
                             </a>
                         </li>
-                        <li class="dropdown">
-                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <i class="fa fa-globe"></i>
-                                    <b class="caret"></b>
-                                    <span class="notification numberOfNot">0</span>
-                              </a>
-                              <ul class="dropdown-menu notifications">
-                                <!--<li id="notificationId"><a href="#">Notification 1</a></li>-->
-                              </ul>
-                        </li>
+             @yield('notification')
                         <li>
                            <a href="">
                                 <i class="fa fa-search"></i>
@@ -136,7 +127,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
+                        <!--<li>
                            <a href="">
                                Account
                             </a>
@@ -155,7 +146,7 @@
                                 <li class="divider"></li>
                                 <li><a href="#">Separated link</a></li>
                               </ul>
-                        </li>
+                        </li>-->
                          <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
@@ -256,7 +247,7 @@
     
         }
 
-        addNotification('dhjfhdsf','fdsdfsdf','#SAfasf','ff');
+        // addNotification('dhjfhdsf','fdsdfsdf','#SAfasf','ff');
 
         function addNotification(title,body,link,id){
             var notification='<li id='+id+'><a '
@@ -269,10 +260,11 @@ $(".numberOfNot").html(numeroFnOTIFICATIONS);
         }
 
         function   removeNotification(id){
-$("#'+id+'").remove();
-numeroFnOTIFICATIONS--;
-$(".numberOfNot").html(numeroFnOTIFICATIONS);
-
+// $("#'+id+'").remove();
+// numeroFnOTIFICATIONS--;
+// $(".numberOfNot").html(numeroFnOTIFICATIONS);
+$(".numberOfNot").html(0);
+$(".notifications").html('');
         }
     </script>
 

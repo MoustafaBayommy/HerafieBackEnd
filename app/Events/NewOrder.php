@@ -9,6 +9,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Order;
+use App\Client;
 
 class NewOrder  implements ShouldBroadcast
 {
@@ -16,15 +17,17 @@ class NewOrder  implements ShouldBroadcast
 
 
   public $order;
+  public $client;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Order $order)
+    public function __construct(Order $order,Client $client)
     {
                 $this->order = $order;
+                 $this->client = $client;
 
         //
     }

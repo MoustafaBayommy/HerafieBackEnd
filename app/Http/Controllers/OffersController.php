@@ -21,7 +21,6 @@ class OffersController extends Controller
      */
     public function index()
     {
-event(new NewRate('offers Page Opened'));
 
            $offers=Offer::all();
             return view('offers',compact('offers'));

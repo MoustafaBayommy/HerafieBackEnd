@@ -9,9 +9,13 @@ use PDF;
 use Event;
 use App\Events\NewOrder;
 use \Datetime;
+use Excel;
 class OrderController extends Controller
 {
 
+
+public static $from_date;
+  public static $to;
     // STUTES=['new','onServe','served'];
     /**
      * Display a listing of the resource.
@@ -21,12 +25,20 @@ class OrderController extends Controller
     public function index()
     {
 
-        $date=date( 'Y-m-d 0:0:0');
-        $ordesrInProgress= Order::with('Client')->where('orderStutes','new')->get();
-            //   $ordesrInProgress=Order::where('orderStutes','new');
-              $ordersFinishedToday=Order::with('Client')->whereNotIn('orderStutes',['new'])->where('created_at',$date);
+        $starttoday=date( 'Y-m-d 0:0:0');
+                $endtoday=date( 'Y-m-d 23:59:59');
 
-          return view('orders',compact(['ordesrInProgress','ordersFinishedToday']));
+        $ordesrInProgress= Order::with('Client')->where('orderStutes','!=','served')->where('orderStutes','!=','rejected')->get();
+        $ordersFinishedToday=Order::with('Client')->where('orderStutes','served')
+        ->where('created_at','>',$starttoday)
+        ->where('created_at','>',$endtoday)
+        ->orderBy('created_at', 'DESC')->get();
+        $ordersRejectedToday=Order::with('Client')->where('orderStutes','rejected')
+   ->where('created_at','>',$starttoday)
+        ->where('created_at','>',$endtoday)
+        ->orderBy('created_at', 'DESC')->get();
+
+          return view('orders',compact(['ordesrInProgress','ordersFinishedToday','ordersRejectedToday']));
     }
 
 
@@ -43,7 +55,7 @@ class OrderController extends Controller
     public function ordersReport(Request $request)
     {
 
-
+// $this->excel($request);
      
   $fromDate=DateTime::createFromFormat('d/m/Y',$request->from)->format('Y-m-d 00:00:00');
     $toDate=DateTime::createFromFormat('d/m/Y',$request->to)->format('Y-m-d 00:00:00');
@@ -144,16 +156,16 @@ return response()->json($orders);
      */
 
 
- public function uploadFile(Request $request){
+ public function uploadDescFile(Request $request){
              $filename='';
               $destinationPath = 'uploads';
 if ($request->hasFile('file')) {
       
           $file = $request->file('file');
       echo $file->getClientOriginalName();
-     $filename=  uniqid('herafie_');
+     $filename=  uniqid('herafie_').$file->getClientOriginalExtension();
 
-              $file->move($destinationPath, $filename.'jpg');
+              $file->move($destinationPath, $filename);
         return response()
             ->json([
     'filesucess' => 'true',
@@ -183,12 +195,16 @@ if ($request->hasFile('file')) {
         $order->onDate=date( 'Y-m-d H:i:s',strtotime($request->onDate));
         $order->onTime =$request->onTime;
         $order->textDescription=$request->descriptionText;
-        $order->fileDescription=$request->descriptionFile;
+        if ($request->hasFile('descriptionFile')) {
 
+        $order->fileDescription=$request->descriptionFile;
+        }else{
+             $order->fileDescription='';
+        }
         
 
                 $order->save();
-Event::fire(new NewOrder($order::with('Client')));
+Event::fire(new NewOrder($order,$client[0]));
 
         //  Order::create($request->all());
         return response()
@@ -236,7 +252,18 @@ Event::fire(new NewOrder($order::with('Client')));
    }else if($request->serving==='true'){
    $stutes='serving';
 
+   }else if($request->rejected==='true'){
+   $stutes='rejected';
+
    }
+
+//   if($request->rejected==='true'){
+//                 Order::where('id',$request->id)->update(['orderStutes'=>$stutes]);
+
+//    }else{
+                Order::where('id',$request->id)->update(['orderStutes'=>$stutes,'note'=>$request->note]);
+
+//    }
         // $newSates=$request->orderStutes;
 
         //
@@ -246,7 +273,6 @@ Event::fire(new NewOrder($order::with('Client')));
         //  $order->adressText='';
         //  $order->save();
         // Order::where('id',$id)->where('name','fd00')->update(['orderStutes'=>$orderStutes]);
-                Order::where('id',$request->id)->update(['orderStutes'=>$stutes]);
 
                 return response()->json([
                     'done'=>'true'
@@ -278,4 +304,130 @@ Event::fire(new NewOrder($order::with('Client')));
 
         Order::destroy($id);
     }
+
+
+public function excel(Request $request)
+    {
+
+
+     
+  $fromDate=DateTime::createFromFormat('d/m/Y',$request->from)->format('Y-m-d 00:00:00');
+    $toDate=DateTime::createFromFormat('d/m/Y',$request->to)->format('Y-m-d 00:00:00');
+        $stutes=$request->stutes;
+
+
+
+        if($stutes==='all'){
+
+
+               $reportOrders=Order::join('clients', 'clients.id', '=', 'orders.client')
+        ->select(
+          'orders.id',
+          'clients.mobile', 
+          'orders.adressText',
+           'orders.adressLong',
+           'orders.adressAlti',
+          'orders.placeType', 
+           'orders.mainServiceType',
+           'orders.serviceType',
+           'orders.onDate',
+           'orders.onTime',
+           'orders.textDescription',
+           'orders.created_at',
+           'orders.orderStutes',
+          'orders.created_at')->where('orders.created_at','>',$fromDate)
+          ->where('orders.created_at','<',$toDate)->get();
+//    $reportOrders=Order::with('Client')->where('created_at','>',$fromDate)->where('created_at','<',$toDate)
+//           ->get();
+        }else{
+   $reportOrders=Order::with('Client')->select(
+           'orders.id',
+          'clients.mobile', 
+          'orders.adressText',
+           'orders.adressLong',
+           'orders.adressAlti',
+          'orders.placeType', 
+           'orders.mainServiceType',
+           'orders.serviceType',
+           'orders.onDate',
+           'orders.onTime',
+           'orders.textDescription',
+           'orders.created_at',
+           'orders.orderStutes',
+          'orders.created_at')->where('created_at','>',$fromDate)->where('created_at','<',$toDate)
+        ->where('orderStutes',$stutes)->get();
+        }
+     
+
+        
+        //  $reportOrders=Order::with('Client')->where('id',1)->get();
+                //  view()->share('reportOrders',$reportOrders);
+  $from=$request->from;
+  $to=$request->to;
+$date=date( 'd-m-Y H:i:s');
+    // Execute the query used to retrieve the data. In this example
+    // we're joining hypothetical users and payments tables, retrieving
+    // the payments table's primary key, the user's first and last name, 
+    // the user's e-mail address, the amount paid, and the payment
+    // timestamp.
+
+
+    // Initialize the array which will be passed into the Excel
+    // generator.
+    $ordersArray = []; 
+
+    // Define the Excel spreadsheet headers
+        $ordersArray[] = [  'id',
+          'clients', 
+          'adressText',
+           'adressLong',
+           'adressAlti',
+          'placeType', 
+           'mainServiceType',
+           'serviceType',
+           'onDate',
+           'onTime',
+           'textDescription',
+           'created_at',
+           'orderStutes',
+          'created_at'
+                 ];
+
+    // Convert each member of the returned collection into an array,
+    // and append it to the payments array.
+    foreach ($reportOrders as $order) {
+        $ordersArray[] = $order->toArray();
+    }
+
+//     Excel::create('Filename', function($excel) use ($ordersArray) {
+
+//     $excel->sheet('Sheetname', function($sheet) use ($ordersArray) {
+//             $sheet->fromArray($ordersArray, null, 'A1', false, false);
+//         });
+// })->download('xls');
+
+    // Generate and return the spreadsheet
+    
+
+    OrderController::$from_date=$fromDate;
+    OrderController::$to=$to;
+
+    Excel::create('orders'.date('Y-m-d::H:i:s'), function($excel) use ($ordersArray) {
+
+        // Set the spreadsheet title, creator, and description
+        $excel->setTitle('Orders_'.date('YY-MM-dd hh:mm:ss'));
+        $excel->setCreator('herafie back end,Powerd by TawwarTech')->setCompany('ElFekr Elherafie ');
+        $excel->setDescription('orders reports generated on '.date('Y-m-d H:i:s').' reports from: '.OrderController::$from_date .' to: '.OrderController::$to );
+
+        // Build the spreadsheet, passing in the payments array
+        $excel->sheet('sheet1', function($sheet) use ($ordersArray) {
+            $sheet->fromArray($ordersArray, null, 'A1', false, false);
+        });
+
+    })->download('xlsx');
+}
+//    public static function init($date) {
+//     self::$myvar = 10*10;
+//     }
+
 }

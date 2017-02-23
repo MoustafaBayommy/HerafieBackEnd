@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Ratings;
 use App\Client;
-
+use Event;
 class ratingsController extends Controller
 {
     /**
@@ -53,7 +53,8 @@ $rate=new Ratings();
              $rate->notes=$request->notes;
 
         $rate->save();
-   
+   Event::fire(new NewRate($rate,$client[0]));
+
         return response()
             ->json([
     'sucess' => 'true'
