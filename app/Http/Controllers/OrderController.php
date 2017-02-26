@@ -125,7 +125,7 @@ return view('ordersReportsview',compact( ['reportOrders']));
             
 //  $client=Client::where('mobile',$mobile)->get();
 // $orders=Order::where('client',$client->id)->take(10)->get();
-$orders = Client::where('mobile',$mobile)->first()->orders()->take(10)->get();
+$orders = Client::where('mobile',$mobile)->first()->orders()->take(10)->orderBy('created_at', 'desc')->get();
 // $orders = Client::find(1)->orders()->first();
 
 
@@ -162,8 +162,8 @@ return response()->json($orders);
 if ($request->hasFile('file')) {
       
           $file = $request->file('file');
-      echo $file->getClientOriginalName();
-     $filename=  uniqid('herafie_').$file->getClientOriginalExtension();
+    //   echo $file->getClientOriginalName();
+     $filename=  uniqid('herafie_').'.'.$file->getClientOriginalExtension();
 
               $file->move($destinationPath, $filename);
         return response()
